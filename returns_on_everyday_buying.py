@@ -1,26 +1,15 @@
+# This code calculates the index returns if you buy a quant daily irrespective of the price fluctuation.
+
 import pandas as pd
 
-# input_file = r"C:\notebooks\Niftybees historical prices.csv"
-input_file = "historical_data/NIFTYBEES_2023_ALL.csv"
+
+input_file = "historical_data/NIFTYBEES_2022_ALL.csv"
+# input_file = "historical_data/BANKBEES_2023_ALL.csv"
+# input_file = "historical_data/MAFANG_2023_ALL.csv"
 
 df = pd.read_csv(input_file)
-initial_cost = df["Close"].iloc[0]
-print("initial cost is: ", initial_cost)
-
-# price_day_one = df["Close Price"].iloc[0]
-amt_invested = initial_cost
-quant = 0
-current_price = initial_cost
-
-for item in df["Close"]:
-    # print("\nitem is: ", item)
-    # if current_price > item:  # Buy
-    amt_invested += item
-    quant += 1
-    print("buying")
-
-    # current_price = item
-
+amt_invested = df['Close'].sum()
+quant = df['Close'].count()
 print("Total Quantity bought: ", quant)
 print("Total Amount invested : ", amt_invested)
 
@@ -31,4 +20,4 @@ latest_price = df['Close'].iloc[-1]
 print("Current latest price is: ", latest_price)
 
 profit_loss = ((latest_price-average_price)/average_price)*100
-print("Profit Loss is: ", round(profit_loss, 2), "%")
+print("Profit/Loss is: ", round(profit_loss, 2), "%")
